@@ -14,7 +14,7 @@ import java.sql.Statement;
  *
  * @author Stas
  */
-public class TelephoneModel {
+public class TelephoneModel extends AbstractDbModel {
     private static final String ID_COLUMN = "id_telephone";
     private static final String TELEPHONE_COLUMN = "phone";
     
@@ -23,6 +23,10 @@ public class TelephoneModel {
     
     public TelephoneModel(String telephone) {
         this.telephone = telephone;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public String getTelephone() {
@@ -33,6 +37,7 @@ public class TelephoneModel {
         this.telephone = telephone;
     }
     
+    @Override
     public void crateOrUpdate(Connection conn, DbTable table) throws SQLException {
         Statement stmt = conn.createStatement();
         ResultSet rs = null;
@@ -40,7 +45,7 @@ public class TelephoneModel {
             System.out.println("-----------------------------------------------------");
             if(id  > 0) {
                 String req = String.format("UPDATE %s SET %s='%s' WHERE %s=%d;", table.getName(), TELEPHONE_COLUMN, telephone, ID_COLUMN, id);
-                System.out.println(req); 
+                System.out.println(req);
                 int nUpd = stmt.executeUpdate(req);
                 System.out.println("Number affected rows = "+nUpd);
             } else {
@@ -48,7 +53,7 @@ public class TelephoneModel {
                 System.out.println(req);
                 stmt.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
                 rs = stmt.getGeneratedKeys();
-                if(rs.first()) { 
+                if(rs.first()) {
                     id = rs.getInt(1);
                     System.out.println("Generated 'telephone_id' = "+id);
                 } else {

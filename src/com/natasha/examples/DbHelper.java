@@ -110,14 +110,27 @@ public class DbHelper {
         }
     }
     
-    
-    
-    
-    
-    public static int executeDbUpdate(Statement stmt, String request) throws SQLException {
-        System.out.println("'"+request+"'");
-        return stmt.executeUpdate(request, Statement.RETURN_GENERATED_KEYS);
+    public int dropTableByName(String tableName) throws SQLException {
+        Connection conn = getConnection();
+        Statement stmt = null;
+        try {
+            System.out.println("-------------------------------------------------------------");
+            System.out.print(String.format("Deleting table '%s'...   ", tableName));
+            String req = "DROP TABLE "+tableName+";";
+            System.out.print("'"+req+"'   ");
+            stmt = conn.createStatement();
+            int dropped = stmt.executeUpdate(req);
+            System.out.println("OK");
+            return dropped;
+        } finally {
+            if(stmt != null) stmt.close();
+            releaseConnection();
+        }
     }
+    
+    
+    
+    
     
     
 }

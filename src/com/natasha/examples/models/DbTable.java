@@ -5,7 +5,6 @@
  */
 package com.natasha.examples.models;
 
-import com.natasha.examples.DbHelper;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,21 +32,25 @@ public class DbTable {
     
     public boolean isTableExists(Connection conn) throws SQLException {
         ResultSet rs = conn.getMetaData().getTables(null, null, "%", null);
-        if(rs.first()) {
-            do {
-                if (rs.getString(3).equals(tableName)) {
-                    return true;
-                }
-            } while(rs.next());
+        try {
+            if(rs.first()) {
+                do {
+                    if (rs.getString(3).equals(tableName)) {
+                        return true;
+                    }
+                } while(rs.next());
+            }
+            return false;
+        } finally {
+            rs.close();
         }
-        return false;
     }
     
     public int clearTable(Connection conn) throws SQLException {
         Statement stmt = conn.createStatement();
         try {
             System.out.print(String.format("Clearing table '%S'... ", tableName));
-            int deleted = DbHelper.executeDbUpdate(stmt, String.format("DELETE FROM %s", this.tableName));
+            int deleted = stmt.executeUpdate(String.format("DELETE FROM %s", this.tableName));
             System.out.println("Deleted items - "+deleted);
             return deleted;
         } finally {
@@ -59,7 +62,7 @@ public class DbTable {
         Statement stmt = conn.createStatement();
         try {
             System.out.print(String.format("Creating table '%S'... ", tableName));
-            DbHelper.executeDbUpdate(stmt, String.format("CREATE TABLE %s (%s, PRIMARY KEY(%s));", tableName, tableTemplate, priKey));
+            stmt.executeUpdate(String.format("CREATE TABLE %s (%s, PRIMARY KEY(%s));", tableName, tableTemplate, priKey));
             System.out.println("OK");
         } finally {
             if(stmt != null) stmt.close();

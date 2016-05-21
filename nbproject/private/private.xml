@@ -5,10 +5,16 @@
         <group name="OOP_examples">
             <file>file:/C:/JAVA_PROJECTS/SQL_JDBC/NatashaJdbc/src/com/natasha/examples/NatashaJdbc.java</file>
             <file>file:/C:/JAVA_PROJECTS/SQL_JDBC/NatashaJdbc/src/com/natasha/examples/DbHelper.java</file>
-            <file>file:/C:/JAVA_PROJECTS/SQL_JDBC/NatashaJdbc/src/com/natasha/examples/DataHelper.java</file>
-            <file>file:/C:/JAVA_PROJECTS/SQL_JDBC/NatashaJdbc/src/com/natasha/examples/models/DbTable.java</file>
-            <file>file:/C:/JAVA_PROJECTS/SQL_JDBC/NatashaJdbc/src/com/natasha/examples/models/ArticleModel.java</file>
-            <file>file:/C:/JAVA_PROJECTS/SQL_JDBC/NatashaJdbc/src/com/natasha/examples/models/TelephoneModel.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/models/DirectorModel.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/DbHelper.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/NatashaJdbc.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/DataHelper.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/models/TelephoneModel.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/models/SupplyerModel.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/models/ManufacturerModel.java</file>
+            <file>file:/C:/Users/stanislav.perchenko/Documents/NetBeansProjects/NatashaJdbc/src/com/natasha/examples/models/SupplyModel.java</file>
         </group>
     </open-files>
 </project-private>
