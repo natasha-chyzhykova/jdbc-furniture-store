@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Stas
+ * @author Nata
  */
 public class DbHelper {
     public static final String DB_NAME = "furniture_store";

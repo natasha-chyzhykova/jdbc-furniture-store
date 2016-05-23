@@ -21,8 +21,7 @@ public class ManufacturerModel extends AbstractDbModel {
     private String website;
     private DirectorModel director;
     
-    private ManufacturerModel(int id, String name, String address, String email, String website, DirectorModel director) {
-        this.id = id;
+    public ManufacturerModel(String name, String address, String email, String website, DirectorModel director) {
         this.name = name;
         this.address = address;
         this.email = email;

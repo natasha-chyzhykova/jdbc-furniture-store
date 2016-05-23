@@ -14,28 +14,29 @@ import java.sql.Statement;
  *
  * @author Nata
  */
-public class TelephoneModel extends AbstractDbModel {
-    private static final String ID_COLUMN = "id_telephone";
-    private static final String TELEPHONE_COLUMN = "phone";
+public class CompositeModel extends AbstractDbModel {
+    public static final String ID_COLUMN = "id_composite";
+    public static final String DESCRIPTION_COLUMN = "description";
     
     private int id;
-    private String telephone;
+    private String description;
     
-    public TelephoneModel(String telephone) {
-        this.telephone = telephone;
+    public CompositeModel(String description) {
+        this.description = description;
     }
     
     public int getId() {
         return id;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setDescription(String description) {
+        this.description = description;
     }
+    
     
     @Override
     public void crateOrUpdate(Connection conn, DbTable table) throws SQLException {
@@ -44,18 +45,18 @@ public class TelephoneModel extends AbstractDbModel {
         try {
             System.out.println("-----------------------------------------------------");
             if(id  > 0) {
-                String req = String.format("UPDATE %s SET %s='%s' WHERE %s=%d;", table.getName(), TELEPHONE_COLUMN, telephone, ID_COLUMN, id);
+                String req = String.format("UPDATE %s SET %s='%s' WHERE (%s=%d);", table.getName(), DESCRIPTION_COLUMN, description, ID_COLUMN, id);
                 System.out.println(req);
                 int nUpd = stmt.executeUpdate(req);
                 System.out.println("Number affected rows = "+nUpd);
             } else {
-                String req = String.format("INSERT INTO %s (%s) VALUES ('%s');", table.getName(), TELEPHONE_COLUMN, telephone);
+                String req = String.format("INSERT INTO %s (%s) VALUES ('%s');", table.getName(), DESCRIPTION_COLUMN, description);
                 System.out.println(req);
                 stmt.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
                 rs = stmt.getGeneratedKeys();
                 if(rs.first()) {
                     id = rs.getInt(1);
-                    System.out.println("Generated 'telephone_id' = "+id);
+                    System.out.println("Generated 'id_composite' = "+id);
                 } else {
                     throw new SQLException("DB did not return generated primary key");
                 }
@@ -64,6 +65,7 @@ public class TelephoneModel extends AbstractDbModel {
             if (rs != null) rs.close();
             stmt.close();
         }
+        
+        
     }
-    
 }

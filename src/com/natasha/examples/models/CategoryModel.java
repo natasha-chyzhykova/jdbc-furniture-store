@@ -14,27 +14,38 @@ import java.sql.Statement;
  *
  * @author Nata
  */
-public class TelephoneModel extends AbstractDbModel {
-    private static final String ID_COLUMN = "id_telephone";
-    private static final String TELEPHONE_COLUMN = "phone";
+public class CategoryModel extends AbstractDbModel {
+    private static final String ID_COLUMN = "id_category";
+    private static final String NAME_COLUMN = "name";
+    private static final String DESCRIPTION_COLUMN = "description";
     
     private int id;
-    private String telephone;
+    private String name;
+    private String description;
     
-    public TelephoneModel(String telephone) {
-        this.telephone = telephone;
+    public CategoryModel(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
     
     public int getId() {
         return id;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getName() {
+        return name;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
     
     @Override
@@ -44,18 +55,18 @@ public class TelephoneModel extends AbstractDbModel {
         try {
             System.out.println("-----------------------------------------------------");
             if(id  > 0) {
-                String req = String.format("UPDATE %s SET %s='%s' WHERE %s=%d;", table.getName(), TELEPHONE_COLUMN, telephone, ID_COLUMN, id);
+                String req = String.format("UPDATE %s SET %s='%s', %s='%s' WHERE (%s=%d);", table.getName(), NAME_COLUMN, name, DESCRIPTION_COLUMN, description, ID_COLUMN, id);
                 System.out.println(req);
                 int nUpd = stmt.executeUpdate(req);
                 System.out.println("Number affected rows = "+nUpd);
             } else {
-                String req = String.format("INSERT INTO %s (%s) VALUES ('%s');", table.getName(), TELEPHONE_COLUMN, telephone);
+                String req = String.format("INSERT INTO %s (%s, %s) VALUES ('%s', '%s');", table.getName(), NAME_COLUMN, DESCRIPTION_COLUMN, name, description);
                 System.out.println(req);
                 stmt.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
                 rs = stmt.getGeneratedKeys();
                 if(rs.first()) {
                     id = rs.getInt(1);
-                    System.out.println("Generated 'telephone_id' = "+id);
+                    System.out.println("Generated 'id_category' = "+id);
                 } else {
                     throw new SQLException("DB did not return generated primary key");
                 }
@@ -65,5 +76,6 @@ public class TelephoneModel extends AbstractDbModel {
             stmt.close();
         }
     }
+    
     
 }

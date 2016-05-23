@@ -9,33 +9,35 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import sun.font.CreatedFontTracker;
 
 /**
  *
  * @author Nata
  */
-public class TelephoneModel extends AbstractDbModel {
-    private static final String ID_COLUMN = "id_telephone";
-    private static final String TELEPHONE_COLUMN = "phone";
+public class MaterialModel extends AbstractDbModel {
+    public static final String ID_COLUMN = "id_material";
+    public static final String NAME_COLUMN = "name";
     
     private int id;
-    private String telephone;
+    private String name;
     
-    public TelephoneModel(String telephone) {
-        this.telephone = telephone;
+    public MaterialModel(String name) {
+        this.name = name;
     }
     
     public int getId() {
         return id;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getName() {
+        return name;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setName(String name) {
+        this.name = name;
     }
+    
     
     @Override
     public void crateOrUpdate(Connection conn, DbTable table) throws SQLException {
@@ -44,18 +46,18 @@ public class TelephoneModel extends AbstractDbModel {
         try {
             System.out.println("-----------------------------------------------------");
             if(id  > 0) {
-                String req = String.format("UPDATE %s SET %s='%s' WHERE %s=%d;", table.getName(), TELEPHONE_COLUMN, telephone, ID_COLUMN, id);
+                String req = String.format("UPDATE %s SET %s='%s' WHERE (%s=%d);", table.getName(), NAME_COLUMN, name, ID_COLUMN, id);
                 System.out.println(req);
                 int nUpd = stmt.executeUpdate(req);
                 System.out.println("Number affected rows = "+nUpd);
             } else {
-                String req = String.format("INSERT INTO %s (%s) VALUES ('%s');", table.getName(), TELEPHONE_COLUMN, telephone);
+                String req = String.format("INSERT INTO %s (%s) VALUES ('%s');", table.getName(), NAME_COLUMN, name);
                 System.out.println(req);
                 stmt.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
                 rs = stmt.getGeneratedKeys();
                 if(rs.first()) {
                     id = rs.getInt(1);
-                    System.out.println("Generated 'telephone_id' = "+id);
+                    System.out.println("Generated 'id_material' = "+id);
                 } else {
                     throw new SQLException("DB did not return generated primary key");
                 }
@@ -64,6 +66,11 @@ public class TelephoneModel extends AbstractDbModel {
             if (rs != null) rs.close();
             stmt.close();
         }
+        
+        
     }
+    
+    
+    
     
 }

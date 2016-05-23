@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class SupplyerModel extends AbstractDbModel {
+public class SupplyierModel extends AbstractDbModel {
     private static final String ID_COLUMN = "id_supplyier";
     private static final String NAME_COLUMN = "name";
     private static final String ADDRESS_COLUMN = "address";
@@ -21,7 +21,7 @@ public class SupplyerModel extends AbstractDbModel {
     private String website;
     private DirectorModel director;
     
-    private SupplyerModel(String name, String address, String email, String website, DirectorModel director) {
+    public SupplyierModel(String name, String address, String email, String website, DirectorModel director) {
         this.name = name;
         this.address = address;
         this.email = email;

@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Stas
+ * @author Nata
  */
 public class DbTable {
     

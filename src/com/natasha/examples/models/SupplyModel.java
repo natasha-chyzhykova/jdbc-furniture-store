@@ -12,20 +12,20 @@ import java.sql.Statement;
 
 /**
  *
- * @author stanislav.perchenko
+ * @author Nata
  */
 public class SupplyModel extends AbstractDbModel {
     private static final String ID_COLUMN = "id_supply";
-    private static final String SUPPLYER_COLUMN = "id_supplyier";
+    private static final String SUPPLYER_ID_COLUMN = "id_supplyier";
     private static final String DATE_COLUMN = "date";
     
     private int id;
-    private SupplyerModel supplyer;
+    private SupplyierModel supplyier;
     private String date;
     
-    public SupplyModel(SupplyerModel supplyer, String date) {
+    public SupplyModel(SupplyierModel supplyer, String date) {
         if(supplyer != null && supplyer.getId() > 0) {
-            this.supplyer = supplyer;
+            this.supplyier = supplyer;
         } else {
             throw new IllegalArgumentException("Valid supplyer instance must be provided");
         }
@@ -36,13 +36,13 @@ public class SupplyModel extends AbstractDbModel {
         return id;
     }
 
-    public SupplyerModel getSupplyer() {
-        return supplyer;
+    public SupplyierModel getSupplyer() {
+        return supplyier;
     }
 
-    public void setSupplyer(SupplyerModel supplyer) {
+    public void setSupplyer(SupplyierModel supplyer) {
         if(supplyer != null && supplyer.getId() > 0) {
-            this.supplyer = supplyer;
+            this.supplyier = supplyer;
         } else {
             throw new IllegalArgumentException("Valid supplyer instance must be provided");
         }
@@ -64,12 +64,12 @@ public class SupplyModel extends AbstractDbModel {
         try {
             System.out.println("-----------------------------------------------------");
             if(id  > 0) {
-                String req = String.format("UPDATE %s SET %s=%d, %s='%s' WHERE (%s=%d);", table.getName(), SUPPLYER_COLUMN, supplyer.getId(), DATE_COLUMN, date, ID_COLUMN, id);
+                String req = String.format("UPDATE %s SET %s=%d, %s='%s' WHERE (%s=%d);", table.getName(), SUPPLYER_ID_COLUMN, supplyier.getId(), DATE_COLUMN, date, ID_COLUMN, id);
                 System.out.println(req);
                 int nUpd = stmt.executeUpdate(req);
                 System.out.println("Number affected rows = "+nUpd);
             } else {
-                String req = String.format("INSERT INTO %s (%s, %s) VALUES ('%s', %d);", table.getName(), SUPPLYER_COLUMN, , EMAIL_COLUMN, WEBSITE_COLUMN, DIRECTOR_ID_COLUMN, name, address, email, website, director.getId());
+                String req = String.format("INSERT INTO %s (%s, %s) VALUES (%d, '%s');", table.getName(), SUPPLYER_ID_COLUMN, DATE_COLUMN, supplyier.getId(), date);
                 System.out.println(req);
                 stmt.executeUpdate(req, Statement.RETURN_GENERATED_KEYS);
                 rs = stmt.getGeneratedKeys();
